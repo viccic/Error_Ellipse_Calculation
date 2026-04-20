@@ -26,7 +26,6 @@ Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-Running the Code
 Activate the uvicorn server through which backend.py is running:
  ```bash
    python uvicorn backend:app --reload
