@@ -1,7 +1,7 @@
 # Error_Ellipse_Calculation
 ## Purpose of this project
 
-In this project, the user opens the *index.html* to upload a txt file containing the **X and Y coordinates** of the control points of the area of interest, their **variance** values in respect to the X and Y axis and their **covariance** values. The data txt file should have the following structure:
+In this project, the user opens the *index.html* to upload a txt file containing the **X and Y coordinates** of the control points of the area of interest, their **variance** values in respect to the X and Y axis and their **covariance** values. The data txt file should have the following structure (Please also check the example of **DATA.txt**):
  ```pre
    **Approximate Coordinates**
 
