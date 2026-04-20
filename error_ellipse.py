@@ -163,7 +163,15 @@ def Calculation(point_names, point_coordinates, point_sigmas):
 
         plt.ylabel('Y')
         plt.xlabel('X')
-        plt.savefig('Graph_Database\\Ellipse_' + point_object.name + '.png')
+        folder = 'Graph_Database'
+
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+
+        filename = f'Ellipse_{point_object.name}.png'
+        filepath = os.path.join(folder, filename)
+
+        plt.savefig(filepath)
         plt.close(fig)
         # plt.show()
 
