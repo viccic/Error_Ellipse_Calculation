@@ -15,7 +15,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/Graph_Database", StaticFiles(directory="Graph_Database"), name="images")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+GRAPH_DIR = os.path.join(BASE_DIR, "Graph_Database")
+
+if not os.path.exists(GRAPH_DIR):
+    os.makedirs(GRAPH_DIR)
+
+app.mount("/Graph_Database", StaticFiles(directory=GRAPH_DIR), name="images")
 
 class Points(BaseModel):
     point_names: list[str]
