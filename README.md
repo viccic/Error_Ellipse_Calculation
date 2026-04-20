@@ -21,16 +21,19 @@ In this project, the user opens *index.html* to upload a `.txt` file containing 
 The output of the project consists of PNG images that depict the error ellipse for each control point based on its variance and covariance values. Example of an output PNG file:
 <img src="docs/figs/Ellipse_A.png" alt="Description of the figure" width="800"/>
  
-## Setup Instructions
+## Instructions
 Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-## Running the Code
+Running the Code
 Activate the uvicorn server through which backend.py is running:
  ```bash
    python uvicorn backend:app --reload
    ```
-## Open *index.html*
+Open *index.html* 
+1. Upload the data txt file.
+2. Click on the **Submit** button to plot the control points.
+3. Click on the **Start Ellipse Calculation** to produce the output.
 
 
