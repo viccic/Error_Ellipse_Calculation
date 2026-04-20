@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <title>Error Ellipse Calculation</title>
+</head>
+
+<body>
+  <h1>Error Ellipse Calculation</h1>
+
+  <div style="display: flex; gap: 30px; align-items: flex-start;">
+    <div id="chart_div" style="width: 800px; height: 500px;"></div>
+    <div id="ellipse_container" style="display: flex; flex-direction: column; gap: 20px;"></div>
+  </div>
+
+  <h3>File with data:</h3>
+  <form onsubmit="handleFile(event)">
+    <label> <for="myfile">Select a file:</label>
+    <input type="file" id="myfile" name="myfile"><br><br>
+    <label>The txt data file should have the following structure (Please also check the example of DATA.txt): </label><br><br>
+    <pre>
+    <b># Approximate Coordinates</b>
+
+    <b>POINT x y</b>
+
+    <em>point_name x-coordinate y-coordinate</em>
+
+    <b># Variance-Covariance</b>
+
+    <em>point_name</em>
+
+    <b>sigmax2</b> <em>σx²_value</em>
+    <b>sigmay2</b> <em>σy²_value</em>
+    <b>sigmaxy</b> <em>σxy_value</em>
+    </pre>
+    <input type="submit" value="Submit"><br><br>
+
+  </form>
+
+  <button onclick="Ellipse_Calculation(event)">Start Ellipse Calculation</button>
+</body>
+
+<script>
+  
+  google.charts.load('current', { packages: ['corechart'] });
+
+  let point_names = [];
+  let point_coordinates = [];
+  let point_sigmas = [];
+  let index = -1;
+  let point_max_ax = [];
+  let point_min_ax = [];
+  let angle_rot_rad = [];
+  let angle_rot_grad = [];
+
+  function handleFile(event) {
+    event.preventDefault();
+
+    const input = document.getElementById("myfile");
+    const file = input.files[0];
+
+    if (!file) {
+      alert("Please select a file.");
+      return;
+    }
+
+    
+    file.text()
+      .then(text => {
+        const lines = text.trim().split('\n');
+
+        for (var i = 2; i < lines.length; i++){
+
+          if (lines[i].trim() === '# Variance-Covariance'){
+            index = i;
+            break;
+
+          } else {
+            var point_n = lines[i].trim().split(/\s+/)[0];
+            var pair = [Number(lines[i].trim().split(/\s+/)[1]),Number(lines[i].trim().split(/\s+/)[2])];
+            point_names.push(point_n);
+            point_coordinates.push(pair);
+          }
+        }
+
+        for (var i = index+1; i < lines.length; i += 4){
+          var triplet = [Number(lines[i+1].trim().split(/\s+/)[1]),Number(lines[i+2].trim().split(/\s+/)[1]),Number(lines[i+3].trim().split(/\s+/)[1])];
+          point_sigmas.push(triplet);
+        }
+
+        google.charts.setOnLoadCallback(function () {
+          drawChart(point_names, point_coordinates);
+        });
+        return [point_names, point_coordinates, point_sigmas]
+      })
+      .catch(err => console.error(err));
+    }
+
+  function Ellipse_Calculation(event) {
+  event.preventDefault();
+
+  //console.log(point_names);
+  //console.log(point_coordinates);
+  //console.log(point_sigmas);
+
+  // NEW
+    fetch("http://127.0.0.1:8000/upload", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        point_names: point_names,
+        point_coordinates: point_coordinates,
+        point_sigmas: point_sigmas
+      })
+    })
+    .then(response => response.json())
+
+    .then(data => {
+      console.log(data);
+      point_name = data.point_name;
+      dir_images = data.images;
+      fetchEllipseGraph(point_names,dir_images);
+
+      //return [point_max_ax, point_min_ax, angle_rot_rad, angle_rot_grad]
+    })
+    .catch(err => console.error(err));
+    // NEW 
+    }
+
+  function drawChart(names, coordinates) {
+    var data = new google.visualization.DataTable();
+    data.addColumn('number');
+    data.addColumn('number');
+    data.addColumn({ type: 'string', role: 'annotation' });
+    data.addColumn({ type: 'string', role: 'tooltip' });
+
+    for (var i = 0; i < coordinates.length; i++) {
+      data.addRow([
+        coordinates[i][0],
+        coordinates[i][1],
+        names[i],
+        coordinates[i][0].toFixed(3) + ', ' + coordinates[i][1].toFixed(3)
+    ]);
+    }
+
+   var options = {
+    title: 'Control Points',
+    hAxis: {
+     title: 'X'
+   },
+    vAxis: {
+      title: 'Y'
+    },
+    legend: 'none',
+    pointSize: 8
+  };
+
+    var chart = new google.visualization.ScatterChart(
+      document.getElementById('chart_div')
+    );
+    chart.draw(data, options);
+  }
+
+  function fetchEllipseGraph(point_names, images) {
+    const container = document.getElementById("ellipse_container");
+    container.innerHTML = "";
+
+    for (let i = 0; i < images.length; i++) {
+      const wrapper = document.createElement("div");
+
+      const title = document.createElement("p");
+      title.textContent = `Ellipse ${point_names[i]}`;
+      title.style.fontWeight = "bold";
+
+      const img = document.createElement("img");
+      img.src = images[i];
+      img.style.width = "500px";
+      img.style.height = "400px";
+
+      wrapper.appendChild(title);
+      wrapper.appendChild(img);
+      container.appendChild(wrapper);  
+    }
+  }
+
+</script>
+</html>
