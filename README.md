@@ -11,7 +11,7 @@ In this project, the user opens *index.html* to upload a `.txt` file containing 
 >
 > **Variance-Covariance**
 >
-> point_name
+> *point_name*
 >
 > **sigmax2** *σx²_value*  
 > **sigmay2** *σy²_value*  
