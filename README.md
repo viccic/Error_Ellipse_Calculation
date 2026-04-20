@@ -19,7 +19,7 @@ In this project, the user opens *index.html* to upload a `.txt` file containing 
 
 ## Output
 The output of the project consists of PNG images that depict the error ellipse for each control point based on its variance and covariance values. Example of an output PNG file:
-<img src="docs/figs/Ellipse_A.png" alt="Description of the figure" width="800"/>
+<img src="docs/figs/Ellipse_B.png" alt="Description of the figure" width="800"/>
  
 ## Instructions
 Install dependencies:
