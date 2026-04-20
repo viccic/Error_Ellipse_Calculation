@@ -1,0 +1,18 @@
+# Approximate Coordinates
+POINT x y
+A 313676.703 4468640.786
+B 313755.932 4468595.357
+C 313691.761 4468588.425
+# Variance-Covariance
+A
+sigmax2 0.0039
+sigmay2 0.0082
+sigmaxy 0.0020
+B
+sigmax2 0.0038
+sigmay2 0.0034
+sigmaxy -0.0010
+C
+sigmax2 0.0039
+sigmay2 0.0069
+sigmaxy 0.0
