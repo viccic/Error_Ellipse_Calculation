@@ -31,6 +31,6 @@ Activate the uvicorn server through which backend.py is running:
  ```bash
    python uvicorn backend:app --reload
    ```
-
+## Open *index.html*
 
 
