@@ -35,6 +35,6 @@ Go to the local folder of the project, click *index.html* and then:
 2. Click **Submit** button to plot the control points.
 3. Click **Start Ellipse Calculation** to generate the output.
 
-The output PNG images are automatically saved in the generated *Graph_Database* directory.
+The output PNG images are automatically saved in the generated *Graph_Database* folder.
 
 Methodology based on: A.M. Agatza-Balodimou, *Theory of Errors & Adjustments I*, National Technical University of Athens, School of Rural, Surveying and Geoinformatics Engineering, Athens, 2009.
