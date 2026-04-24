@@ -1,5 +1,4 @@
 # Standard Error Ellipse Calculation
-## Purpose of this project
 
 In this project, the user opens *index.html* to upload a `.txt` file containing the **X and Y coordinates** of the control points of the area of interest, along with their **variance** values with respect to the X and Y axes and their **covariance** values. The input `.txt` file should follow the structure below (see also the example in **DATA.txt**):
 
