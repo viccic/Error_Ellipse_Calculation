@@ -33,7 +33,7 @@ Activate the uvicorn server through which backend.py is running:
    ```
 Go to the local folder of the project, click *index.html* and then:
 1. Upload the data txt file.
-2. Click **Submit** button to plot the control points.
+2. Click **Submit** to plot the control points.
 3. Click **Start Ellipse Calculation** to generate the output.
 
 The output PNG images are automatically saved in the generated *Graph_Database* folder.
