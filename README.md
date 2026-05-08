@@ -23,7 +23,7 @@ The output of the project consists of PNG images that depict the standard error 
 A brief description of the implemented theory can be found in [Theory of the Standard Error Ellipse](docs/Theory%20of%20the%20Standard%20Error%20Ellipse.pdf).
 
 ## Instructions
-After creating a Python virtual envrionment for this project, install dependencies:
+After creating and activating a Python virtual environment for this project, install dependencies:
    ```bash
   pip install -r requirements.txt
    ```
